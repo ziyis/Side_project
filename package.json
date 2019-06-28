@@ -1,0 +1,25 @@
+{
+  "name": "moviewithfriends",
+  "version": "1.0.0",
+  "description": "Side Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziyis/Side_project.git"
+  },
+  "author": "Ziyi Song",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ziyis/Side_project/issues"
+  },
+  "homepage": "https://github.com/ziyis/Side_project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
