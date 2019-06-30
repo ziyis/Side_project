@@ -17,10 +17,14 @@
   },
   "homepage": "https://github.com/ziyis/Side_project#readme",
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "nodemon": "^1.19.1"
   }
 }
