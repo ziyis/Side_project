@@ -1,17 +1,26 @@
 var express = require('express')
-var socket = require('socket.io')
-
 var app = express();
-var server = app.listen(4000, function(){
-	console.log('listening');
-});
+const path = require('path')
+const http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-//files
 app.use(express.static('public'));
 
-//setup socket
-var io = socket(server);
+app.get('/', function(req, res){
+  res.sendFile(__dirname+'/public/index.html');
+});
+
+http.listen(4000, function(){
+  console.log('listening on *:3000');
+});
 
 io.on('connection',function(socket){
-	console.log('made connection',socket.id);
+	socket.on('event',function(msg){
+		console.log('socket');
+		io.emit('event',msg);
+	});
+	console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
