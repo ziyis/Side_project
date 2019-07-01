@@ -20,6 +20,23 @@
           <i class="fas fa-pause" style="font-size:35px;"></i>
         </button>
       </div>
+    <div id="chat-box">
+      <h2>Chat Box</h2>
+      <div id="chat-window">
+          <div id="output"></div>
+          <div id="feedback"></div>
+      </div>
+
+      <div id="login">
+        <input id="handle" type="text" placeholder="Name" />
+        <button id="enterchat">Send</button>
+      </div>
+      <div id="talking">
+        <input id="message" type="text" placeholder="Message" />
+        <button id="send">Send</button>
+      </div>
+
+    </div>
     <script src="/video.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>  window.jQuery || document.write('<script src="http://mysite.com/jquery.min.js"><\/script>')</script>
@@ -29,6 +46,7 @@
     <script>
       var playvideo = $("#playvideo");
       var pausevideo = $("#pausevideo");
+
       playvideo.click(function(event){
         mymessage = {
           state: 'play',
@@ -43,6 +61,7 @@
         }
         socket.emit('event',mymessage);
       });
+
 
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
@@ -97,11 +116,67 @@
         player.pauseVideo();
       }
 
-
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
+      
+      var login = $("#login");
+      var talking = $("#talking");
+      var enterchat = $("#enterchat");
+      var send = $("#send");
+
+      var message = document.getElementById('message'),
+          handle = document.getElementById('handle'),
+          enter = document.getElementById('enterchat'),
+          btn = document.getElementById('send'),
+          output = document.getElementById('output'),
+          feedback = document.getElementById('feedback');
+
+
+      talking.hide();
+      enterchat.click(function(event){
+        talking.show();
+        login.hide();
+      });
+
+      enter.addEventListener('click', function(){
+        console.log(handle.value);
+        message.value = ""
+        socket.emit('enterroom', {
+            message: message.value,
+            handle: handle.value,
+        });
+      });
+
+      // Emit events
+
+      btn.addEventListener('click', function(){
+        console.log(handle.value);
+          socket.emit('chat', {
+              message: message.value,
+              handle: handle.value
+          });
+          message.value = "";
+      });
+
+      message.addEventListener('keypress', function(){
+          socket.emit('typing', handle.value);
+      })
+
+      socket.on('enterroom', function(data){
+        feedback.innerHTML = '<p><em>' + data.handle + ' has entered the chat room.</em></p>';
+      });
+
+      // Listen for events
+      socket.on('chat', function(data){
+          feedback.innerHTML = '';
+          output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
+      });
+
+      socket.on('typing', function(data){
+          feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
+      });
       socket.on('event',function(msg){
         if (msg.state == 'play'){
           playVideo();

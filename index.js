@@ -16,11 +16,24 @@ http.listen(4000, function(){
 
 io.on('connection',function(socket){
 	socket.on('event',function(msg){
-		console.log('socket');
 		io.emit('event',msg);
 	});
-	console.log('a user connected');
+	console.log('a user connected', socket.id);
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log('user disconnected',socket.id);
   });
+	socket.on('chat', function(data){
+		console.log(data);
+		io.emit('chat', data);
+	});
+	
+	socket.on('enterroom', function(data){
+		console.log(data);
+		io.emit('enterroom', data);
+	});
+
+	// Handle typing event
+	socket.on('typing', function(data){
+		socket.broadcast.emit('typing', data);
+	});
 });
