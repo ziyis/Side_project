@@ -10,8 +10,8 @@ app.get('/', function(req, res){
   res.sendFile(__dirname+'/public/index.html');
 });
 
-http.listen(4000, function(){
-  console.log('listening on *:3000');
+http.listen(process.env.PORT || 4000, function(){
+  console.log('listening on *:4000');
 });
 
 io.on('connection',function(socket){
