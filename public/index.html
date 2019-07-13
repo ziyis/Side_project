@@ -10,7 +10,6 @@
 
   </head>
   <body>
-    <h1>Hello World</h1>
       <div id="player"></div>
       <div id="playercontrol" >
         <button id="playvideo" class="btn">
@@ -28,7 +27,7 @@
       </div>
 
       <div id="login">
-        <input id="handle" type="text" placeholder="Name" />
+        <input id="handle" type="text" placeholder="Enter your name to start the chat." />
         <button id="enterchat">Send</button>
       </div>
       <div id="talking">
@@ -77,7 +76,7 @@
         player = new YT.Player('player', {
           width: 1280,
           height: 720,
-          videoId: '8kVI621fZug',
+          videoId: 'I1gQdfoJPHc',
           playerVars: {
             'controls': 0,
             'diablekb': 1,
@@ -120,7 +119,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
-      
+
       var login = $("#login");
       var talking = $("#talking");
       var enterchat = $("#enterchat");

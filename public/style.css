@@ -16,6 +16,7 @@
 iframe {pointer-events: none;}
 
 #player{
+  padding-top: 25px;
   display: block;
   margin: 0 auto;
   position: relative;

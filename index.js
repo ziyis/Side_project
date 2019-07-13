@@ -23,13 +23,11 @@ io.on('connection',function(socket){
     console.log('user disconnected',socket.id);
   });
 	socket.on('chat', function(data){
-		console.log(data);
 		io.emit('chat', data);
 	});
-	
+
 	socket.on('enterroom', function(data){
-		console.log(data);
-		io.emit('enterroom', data);
+		socket.broadcast.emit('enterroom', data);
 	});
 
 	// Handle typing event
